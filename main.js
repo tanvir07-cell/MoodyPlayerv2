@@ -170,9 +170,37 @@ const getImage = async () => {
 
 trainButton.onclick = async () => {
   train();
+
   statusElement.style.display = "block";
   statusElement.innerHTML = "Training...";
+
+  await newModel.save("indexeddb://my-trained-model");
+  statusElement.innerHTML = "Model trained and saved to IndexedDB!";
+
+  localStorage.setItem("modelLabels", JSON.stringify(labels));
 };
+
+const loadTrainedModel = async () => {
+  try {
+    newModel = await tf.loadLayersModel("indexeddb://my-trained-model");
+    statusElement.innerHTML = "Model loaded from IndexedDB!";
+
+    // Load the labels from localStorage
+    const storedLabels = localStorage.getItem("modelLabels");
+    if (storedLabels) {
+      labels = JSON.parse(storedLabels);
+    }
+
+    // Optionally, restore the totals array
+    totals = labels.map(() => 0); // Initialize totals to zero or any other logic
+  } catch (error) {
+    statusElement.innerHTML = "Failed to load model from IndexedDB.";
+    console.error("Error loading model: ", error);
+  }
+};
+
+// Call this function to load the model when needed
+loadTrainedModel();
 
 const train = () => {
   isTraining = true;
