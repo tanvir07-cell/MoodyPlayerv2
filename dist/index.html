@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #webcam {
+        transform: scaleX(-1); /* Mirror the webcam feed horizontally */
+        width: 100%;
+      }
+
+      #image {
+        transition: opacity 1s ease-in-out;
+        opacity: 0;
+      }
+    </style>
+
+    <script type="module" crossorigin src="/assets/index-CKT0sO1x.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-TrZG-R9u.css">
+  </head>
+  <body>
+    <header class="light-blue-mesh glass">
+      <h2>
+        <span class="icon">🎧</span>MoodyPlayer<span class="icon">🎧</span>
+      </h2>
+    </header>
+
+    <!-- Part 2 -->
+    <div id="status">Loading model...</div>
+
+    <!-- <div id="controller" style="display: none">
+      <div>
+        <section>
+          <button id="train">
+            <span id="train-status">TRAIN MODEL</span>
+          </button>
+          <button id="predict">START PREDICTIONS</button>
+        </section>
+
+        <video
+          autoplay
+          playsinline
+          muted
+          id="webcam"
+          width="224"
+          height="224"
+        ></video>
+      </div>
+
+      <div id="buttons-container">
+        <button class="record-button" id="left">Add left sample</button>
+        <p><span id="left-total">0</span> examples</p>
+        <button class="record-button" id="right">Add right sample</button>
+        <p><span id="right-total">0</span> examples</p>
+      </div>
+    </div> -->
+
+    <div id="controller">
+      <div>
+        <video
+          autoplay
+          playsinline
+          muted
+          id="webcam"
+          width="224"
+          height="224"
+        ></video>
+
+        <section>
+          <button id="train" class="dark-blue-mesh glass" style="display: none">
+            <span id="train-status">TRAIN MODEL</span>
+          </button>
+          <button id="predict" class="light-blue-mesh">
+            START PREDICTIONS
+          </button>
+          <button id="take-photo" class="light-blue-mesh glass">
+            TAKE PHOTO
+          </button>
+        </section>
+      </div>
+
+      <div id="labels-container">
+        <input type="text" id="label-input" placeholder="Enter label" />
+        <button id="add-label" class="light-blue-mesh glass">Add Label</button>
+      </div>
+
+      <div id="buttons-container">
+        <!-- Buttons for recording samples will be dynamically added here -->
+      </div>
+
+      <div id="captured-photo-container">
+        <h3>Captured Photo:</h3>
+        <div style="position: relative">
+          <canvas id="captured-photo"></canvas>
+          <div
+            id="emoji-container"
+            style="position: absolute; top: 10px; left: 10px; font-size: 50px"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="iframe">
+      <iframe
+        id="video-player"
+        width="560"
+        height="315"
+        style="display: none"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+  </body>
+</html>
