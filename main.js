@@ -1,6 +1,9 @@
 import * as tf from "@tensorflow/tfjs";
 import * as tfd from "@tensorflow/tfjs-data";
 
+// registering service worker:
+navigator.serviceWorker.register("/sw.js");
+
 const recordButtons = document.getElementsByClassName("record-button");
 const buttonsContainer = document.getElementById("buttons-container");
 
@@ -477,3 +480,24 @@ const predictCapturedPhoto = async () => {
 
   return predictedLabel;
 };
+
+// for web storage:
+
+(async function () {
+  if (navigator.storage && navigator.storage.persist) {
+    if (!(await navigator.storage.persisted())) {
+      const result = await navigator.storage.persist();
+      console.log(`Was Persistent Storage Request granted? ${result}`);
+    } else {
+      console.log(`Persistent Storage already granted`);
+    }
+  }
+})();
+
+(async function () {
+  if (navigator.storage && navigator.storage.estimate) {
+    const q = await navigator.storage.estimate();
+    console.log(`quota available: ${parseInt(q.quota / 1024 / 1024)}MiB`);
+    console.log(`quota usage: ${q.usage / 1024}KiB`);
+  }
+})();
